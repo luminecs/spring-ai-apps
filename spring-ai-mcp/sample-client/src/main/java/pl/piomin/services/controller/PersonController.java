@@ -8,6 +8,7 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class PersonController {
     private final ChatClient chatClient;
     private final List<McpSyncClient> mcpSyncClients;
 
-    public PersonController(ChatClient.Builder chatClientBuilder,
+    public PersonController(@Qualifier("doubaoChatClientBuilder") ChatClient.Builder chatClientBuilder,
                             ToolCallbackProvider tools,
                             List<McpSyncClient> mcpSyncClients) {
         this.chatClient = chatClientBuilder

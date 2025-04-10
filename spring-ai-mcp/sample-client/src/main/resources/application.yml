@@ -3,3 +3,12 @@ spring.ai.mcp.client.sse.connections:
     url: http://localhost:8060
   account-mcp-server:
     url: http://localhost:8040
+spring:
+  ai:
+    chat:
+      client:
+        enabled: false
+    openai:
+      api-key: ${DOUBAO_API_KEY}
+server:
+  port: 8082
