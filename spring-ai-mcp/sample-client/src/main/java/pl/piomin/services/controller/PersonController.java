@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
-import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,15 +24,9 @@ public class PersonController {
     private final ChatClient chatClient;
     private final List<McpSyncClient> mcpSyncClients;
 
-    public PersonController(@Qualifier("doubaoChatClientBuilder") ChatClient.Builder chatClientBuilder,
-                            ToolCallbackProvider tools,
+    public PersonController(@Qualifier("doubaoChatClient") ChatClient chatClient,
                             List<McpSyncClient> mcpSyncClients) {
-        this.chatClient = chatClientBuilder
-                .defaultTools(tools)
-//                .defaultAdvisors(
-//                        new PromptChatMemoryAdvisor(chatMemory),
-//                        new SimpleLoggerAdvisor())
-                .build();
+        this.chatClient = chatClient;
         this.mcpSyncClients = mcpSyncClients;
     }
 

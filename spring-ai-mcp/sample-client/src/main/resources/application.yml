@@ -10,5 +10,9 @@ spring:
         enabled: false
     openai:
       api-key: ${DOUBAO_API_KEY}
+    mcp:
+      client:
+        toolcallback:
+          enabled: true
 server:
   port: 8082

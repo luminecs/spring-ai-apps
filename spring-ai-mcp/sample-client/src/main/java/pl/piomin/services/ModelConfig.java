@@ -5,6 +5,7 @@ import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
+import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +34,7 @@ public class ModelConfig {
         OpenAiApi openAiApi = OpenAiApi.builder()
                 .baseUrl("https://ark.cn-beijing.volces.com/api")
                 .apiKey(System.getenv("DOUBAO_API_KEY"))
+                .completionsPath("/v3/chat/completions")
                 .build();
         OpenAiChatOptions options = OpenAiChatOptions.builder()
                 .model("deepseek-v3-250324")
@@ -43,9 +45,11 @@ public class ModelConfig {
     }
 
     @Bean(name = "doubaoChatClientBuilder")
-    public ChatClient.Builder doubaoChatClientBuilder(@Qualifier("doubaoChatModel") OpenAiChatModel doubaoChatModel) {
+    public ChatClient.Builder doubaoChatClientBuilder(@Qualifier("doubaoChatModel") OpenAiChatModel doubaoChatModel,
+                                                      ToolCallbackProvider tools) {
         return ChatClient.builder(doubaoChatModel)
                 .defaultSystem("你是一个优秀的 AI 智能助手，请提供准确清晰且有帮助的回答")
+                .defaultTools(tools)
                 // MessageChatMemoryAdvisor 可选
                 .defaultAdvisors(new SimpleLoggerAdvisor());
     }
