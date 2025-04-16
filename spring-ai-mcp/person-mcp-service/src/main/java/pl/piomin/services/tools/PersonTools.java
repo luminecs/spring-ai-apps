@@ -12,21 +12,19 @@ import java.util.List;
 @Service
 public class PersonTools {
 
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     public PersonTools(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
-    @Tool(description = "Find person by ID")
-    public Person getPersonById(
-            @ToolParam(description = "Person ID") Long id) {
+    @Tool(description = "通过人员 ID 查找人")
+    public Person getPersonById(@ToolParam(description = "人员 ID") Long id) {
         return personRepository.findById(id).orElse(null);
     }
 
-    @Tool(description = "Find all persons by nationality")
-    public List<Person> getPersonsByNationality(
-            @ToolParam(description = "Nationality") String nationality) {
+    @Tool(description = "按国籍查找所有人")
+    public List<Person> getPersonsByNationality(@ToolParam(description = "国籍") String nationality) {
         return personRepository.findByNationality(nationality);
     }
 

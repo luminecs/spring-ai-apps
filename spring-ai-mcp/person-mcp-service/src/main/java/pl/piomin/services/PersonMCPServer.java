@@ -27,14 +27,14 @@ public class PersonMCPServer {
 
     @Bean
     public List<McpServerFeatures.SyncPromptSpecification> myPrompts() {
-        var prompt = new McpSchema.Prompt("persons-by-nationality", "Get persons by nationality",
-                List.of(new McpSchema.PromptArgument("nationality", "Person nationality", true)));
+        var prompt = new McpSchema.Prompt("persons-by-nationality", "按国籍获取人员",
+                List.of(new McpSchema.PromptArgument("nationality", "人员国籍", true)));
 
         var promptSpecification = new McpServerFeatures.SyncPromptSpecification(prompt, (exchange, getPromptRequest) -> {
             String argument = (String) getPromptRequest.arguments().get("nationality");
             var userMessage = new McpSchema.PromptMessage(McpSchema.Role.USER,
-                    new McpSchema.TextContent("How many persons come from " + argument + " ?"));
-            return new McpSchema.GetPromptResult("Count persons by nationality", List.of(userMessage));
+                    new McpSchema.TextContent("有多少人来自 " + argument + " 国家?"));
+            return new McpSchema.GetPromptResult("按国籍统计人数", List.of(userMessage));
         });
 
         return List.of(promptSpecification);

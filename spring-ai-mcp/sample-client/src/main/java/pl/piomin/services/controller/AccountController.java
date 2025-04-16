@@ -17,11 +17,8 @@ import java.util.Map;
 @RequestMapping("/accounts")
 public class AccountController {
 
-    private final static Logger LOG = LoggerFactory.getLogger(PersonController.class);
+    private final static Logger LOG = LoggerFactory.getLogger(AccountController.class);
     private final ChatClient chatClient;
-
-//    @Autowired
-//    private List<McpSyncClient> mcpSyncClients;
 
     public AccountController(@Qualifier("doubaoChatClient") ChatClient chatClient) {
         this.chatClient = chatClient;
@@ -30,7 +27,7 @@ public class AccountController {
     @GetMapping("/count-by-person-id/{personId}")
     String countByPersonId(@PathVariable String personId) {
         PromptTemplate pt = new PromptTemplate("""
-                How many accounts has person with {personId} ID ?
+                人员 ID 为 {personId} 的人有多少个帐户？
                 """);
         Prompt p = pt.create(Map.of("personId", personId));
         return this.chatClient.prompt(p)
@@ -41,8 +38,8 @@ public class AccountController {
     @GetMapping("/balance-by-person-id/{personId}")
     String balanceByPersonId(@PathVariable String personId) {
         PromptTemplate pt = new PromptTemplate("""
-                How many accounts has person with {personId} ID ?
-                Return person name, nationality and a total balance on his/her accounts.
+                人员 ID 为 {personId} 的人有多少个帐户？
+                返回个人姓名、国籍和其账户的总余额。
                 """);
         Prompt p = pt.create(Map.of("personId", personId));
         return this.chatClient.prompt(p)

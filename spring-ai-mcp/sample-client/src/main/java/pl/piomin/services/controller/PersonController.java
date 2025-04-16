@@ -32,9 +32,8 @@ public class PersonController {
 
     @GetMapping("/nationality/{nationality}")
     String findByNationality(@PathVariable String nationality) {
-
         PromptTemplate pt = new PromptTemplate("""
-                Find persons with {nationality} nationality.
+                查找具有 {nationality} 国籍的人员。
                 """);
         Prompt p = pt.create(Map.of("nationality", nationality));
         return this.chatClient.prompt(p)
@@ -45,7 +44,7 @@ public class PersonController {
     @GetMapping("/count-by-nationality/{nationality}")
     String countByNationality(@PathVariable String nationality) {
         PromptTemplate pt = new PromptTemplate("""
-                How many persons come from {nationality} ?
+                有多少人来自 {nationality} ？
                 """);
         Prompt p = pt.create(Map.of("nationality", nationality));
         return this.chatClient.prompt(p)
@@ -69,7 +68,7 @@ public class PersonController {
             var content = (McpSchema.TextContent) client.get().getPrompt(r).messages().getFirst().content();
             PromptTemplate pt = new PromptTemplate(content.text());
             Prompt p = pt.create(Map.of("nationality", nationality));
-            LOG.info("Prompt: {}", p);
+            LOG.info("获取到的提示词: {}", p);
             return p;
         } else return null;
     }

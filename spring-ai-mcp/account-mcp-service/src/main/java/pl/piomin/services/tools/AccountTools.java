@@ -17,9 +17,8 @@ public class AccountTools {
         this.accountRepository = accountRepository;
     }
 
-    @Tool(description = "Find all accounts by person ID")
-    public List<Account> getAccountsByPersonId(
-            @ToolParam(description = "Person ID") Long personId) {
+    @Tool(description = "根据人员 ID 查找所有帐户")
+    public List<Account> getAccountsByPersonId(@ToolParam(description = "人员 ID") Long personId) {
         return accountRepository.findByPersonId(personId);
     }
 }

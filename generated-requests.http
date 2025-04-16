@@ -1,0 +1,14 @@
+###
+GET http://localhost:8082/accounts/count-by-person-id/1
+
+###
+GET http://localhost:8082/accounts/balance-by-person-id/1
+
+###
+GET http://localhost:8082/persons/nationality/China
+
+###
+GET http://localhost:8082/persons/count-by-nationality/China
+
+###
+GET http://localhost:8082/persons/count-by-nationality-from-client/China
